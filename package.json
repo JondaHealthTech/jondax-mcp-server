@@ -1,0 +1,55 @@
+{
+  "name": "@jondax/mcp-server",
+  "version": "1.0.1",
+  "description": "Model Context Protocol (MCP) Server for JondaX by Jonda Health",
+  "main": "dist/index.js",
+  "type": "module",
+  "bin": {
+    "jondax-mcp-server": "dist/index.js",
+    "mcp-server": "dist/index.js",
+    "jondax-mcp": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build && chmod +x dist/index.js",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JondaHealthTech/jondax-mcp-server.git"
+  },
+  "homepage": "https://jonda.health",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "jondax",
+    "healthtech",
+    "pathology",
+    "medical-device",
+    "fhir",
+    "hl7"
+  ],
+  "author": "Jonda Health",
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.6.1",
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.7",
+    "form-data": "^4.0.2",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.5",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3"
+  }
+}
