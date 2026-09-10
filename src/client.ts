@@ -83,15 +83,35 @@ export class JondaXClient {
    */
   async getResults(uploadId: string, format?: string): Promise<any> {
     const params = format ? { format } : {};
+
+    // Parquet is binary (application/octet-stream). Fetch it as raw bytes so
+    // axios does not decode the body as UTF-8 — that decode corrupts the
+    // Parquet bytes and produces an unreadable file. All other formats are
+    // text and keep the default (string/JSON) handling.
+    const isBinary = format === 'parquet';
+
     const response = await this.http.get(`/api/v1/results/${encodeURIComponent(uploadId)}`, {
       params,
+      responseType: isBinary ? 'arraybuffer' : undefined,
       validateStatus: (status) => status === 200 || status === 202,
     });
+
+    // A 202 (still processing) returns a JSON body even for parquet requests.
+    // When we asked for arraybuffer, decode that small body back to an object
+    // so the caller can read the "processing" message rather than a buffer.
+    let data = response.data;
+    if (isBinary && response.status === 202) {
+      try {
+        data = JSON.parse(Buffer.from(response.data).toString('utf-8'));
+      } catch {
+        data = Buffer.from(response.data).toString('utf-8');
+      }
+    }
 
     return {
       status: response.status,
       headers: response.headers,
-      data: response.data,
+      data,
     };
   }
 }
