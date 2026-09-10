@@ -114,4 +114,24 @@ export class JondaXClient {
       data,
     };
   }
+
+  /**
+   * List the caller's uploads (newest first) with optional filters.
+   */
+  async listUploads(params: {
+    limit?: number;
+    fromDate?: string;
+    toDate?: string;
+    status?: string;
+  }): Promise<any> {
+    // Drop undefined values so we only send the filters the caller set.
+    const query: Record<string, string | number> = {};
+    if (params.limit !== undefined) query.limit = params.limit;
+    if (params.fromDate) query.fromDate = params.fromDate;
+    if (params.toDate) query.toDate = params.toDate;
+    if (params.status) query.status = params.status;
+
+    const response = await this.http.get('/api/v1/uploads', { params: query });
+    return response.data;
+  }
 }
