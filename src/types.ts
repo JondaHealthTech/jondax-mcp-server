@@ -25,3 +25,12 @@ export const GetResultsInputSchema = z.object({
 });
 
 export type GetResultsInput = z.infer<typeof GetResultsInputSchema>;
+
+export const ListUploadsInputSchema = z.object({
+  limit: z.number().int().min(1).max(100).optional().describe('Maximum number of uploads to return (1-100). Defaults to 10 (most recent first).'),
+  fromDate: z.string().optional().describe('Only include uploads on or after this date (ISO-8601, e.g. 2026-08-01). Inclusive.'),
+  toDate: z.string().optional().describe('Only include uploads on or before this date (ISO-8601, e.g. 2026-08-07). Inclusive. Set fromDate == toDate for a single day.'),
+  status: z.enum(['uploaded', 'processing', 'completed', 'failed']).optional().describe('Only include uploads with this status.'),
+});
+
+export type ListUploadsInput = z.infer<typeof ListUploadsInputSchema>;

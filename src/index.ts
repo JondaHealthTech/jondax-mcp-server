@@ -26,10 +26,15 @@ import {
   handleGetResults,
 } from './tools/get-results.js';
 import {
+  listUploadsToolDefinition,
+  handleListUploads,
+} from './tools/list-uploads.js';
+import {
   UploadPathologyInputSchema,
   UploadMedicalInputSchema,
   GetStatusInputSchema,
   GetResultsInputSchema,
+  ListUploadsInputSchema,
 } from './types.js';
 
 // Load environment variables (.env if present)
@@ -57,6 +62,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       uploadMedicalToolDefinition,
       getStatusToolDefinition,
       getResultsToolDefinition,
+      listUploadsToolDefinition,
     ],
   };
 });
@@ -85,6 +91,11 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       case 'get_extracted_results': {
         const input = GetResultsInputSchema.parse(args);
         return await handleGetResults(client, input);
+      }
+
+      case 'list_uploads': {
+        const input = ListUploadsInputSchema.parse(args);
+        return await handleListUploads(client, input);
       }
 
       default:

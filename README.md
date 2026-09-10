@@ -15,6 +15,7 @@ JondaX provides two core processing modules and retrieval tools:
 | **`upload_pathology_scan`** | **Async** | Uploads a pathology report or lab document (PDF, JPG, PNG, JSON, CSV, Parquet and etc). JondaX de-identifies, extracts, normalises, translates, and returns an `uploadId` for tracking. |
 | **`upload_medical_device`** | **Sync** | Uploads an image of a medical device reading (pulse oximeter, blood pressure monitor, glucometer, etc.) and extracts readings instantly. |
 | **`get_upload_status`** | **Query** | Checks processing status (`uploaded`, `processing`, `completed`, `failed`) and webhook delivery status. |
+| **`list_uploads`** | **Query** | Lists your recent uploads (newest first) with `uploadId`, file name, status, upload date and expiry. Optional filters: `limit` (1–100, default 10), `fromDate`/`toDate` range, and `status`. Useful for discovering `uploadId`s. |
 | **`get_extracted_results`** | **Query** | Retrieves structured extracted results (JSON, FHIR JSON, FHIR XML, HL7, CSV, Parquet). Retained for 30 days. Returns HTTP 202 if still in progress. |
 
 ---
