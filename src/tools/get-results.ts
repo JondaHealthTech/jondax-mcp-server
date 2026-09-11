@@ -3,7 +3,7 @@ import { GetResultsInput } from '../types.js';
 
 export const getResultsToolDefinition = {
   name: 'get_extracted_results',
-  description: 'Retrieve the extracted structured results (biomarkers, test values, reference ranges) for a completed document. Defaults to your account configured format (JSON, FHIR_JSON, HL7, CSV). Returns HTTP 202 Accepted message if still in progress.',
+  description: 'Retrieve the extracted structured results (biomarkers, test values, reference ranges) for a completed document. Defaults to your account configured format (JSON, FHIR_JSON, HL7, CSV). Returns an HTTP 202 Accepted message if still in progress — if so, do not retry in a loop; tell the user to check again later, as processing may include manual human review.',
   inputSchema: {
     type: 'object',
     properties: {
