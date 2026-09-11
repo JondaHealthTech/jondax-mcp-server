@@ -1,6 +1,6 @@
 {
   "name": "@jondax/mcp-server",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Model Context Protocol (MCP) Server for JondaX by Jonda Health",
   "main": "dist/index.js",
   "type": "module",
